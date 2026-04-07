@@ -1,0 +1,53 @@
+version: 1
+
+project:
+  title: Research with AI
+  authors:
+    - name: -YY-
+  keywords: ["statistics", "analytics", "AI", "machine learning", "economics", "business", "Python", "Colab"]
+  bibliography:
+    - references.bib
+
+  toc:
+    - file: intro.md
+
+    - title: Notes
+      children:
+        - file: lesson/01-foundations.md
+        - file: lesson/02-eda.md
+        - file: lesson/03-probability.md
+        - file: lesson/04-apis.md
+        - file: lesson/05-cleaning.md
+        - file: lesson/06-regression.md
+        - file: lesson/07-visualization.md
+        - file: lesson/08-unsupervised.md
+        - file: lesson/09-trees-NLP.md
+        - file: lesson/10-timeseries.md
+        - file: lesson/11-researchAI.md
+        - file: lesson/12-AI-literacy.md
+        - file: lesson/13-responsibleAI.md
+        - file: lesson/14-capstone.md
+    
+  exports:
+    - format: pdf
+      output: _build/exports/AI-Research.pdf
+      articles:
+        - intro.md
+        - lesson/01-foundations.md
+        - lesson/02-eda.md
+        - lesson/03-probability.md
+        - lesson/04-apis.md
+
+site:
+  template: book-theme
+  options:
+    logo_text: Research with AI
+    outline_maxdepth: 1
+
+parse:
+  myst_enable_extensions:
+    - colon_fence
+    - deflist
+    - dollarmath
+    - linkify
+    - substitution
