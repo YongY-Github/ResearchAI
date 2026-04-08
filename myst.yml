@@ -27,6 +27,7 @@ project:
         - file: lesson/12-AI-literacy.md
         - file: lesson/13-responsibleAI.md
         - file: lesson/14-capstone.md
+        - file: lesson/Appendices.md
     
   exports:
     - format: pdf
