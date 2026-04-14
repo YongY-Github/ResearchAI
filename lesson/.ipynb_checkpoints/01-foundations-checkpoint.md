@@ -3,10 +3,11 @@
 :::{admonition} Learning goals
 :class: tip
 By the end of Lesson 1, you should be able to:
-1. Explain the differences between **Analytics**, **Data Science**, **AI**, and **Machine Learning (ML)**.
-2. Distinguish **supervised** vs **unsupervised** learning using business/econ examples.
-3. Describe a full workflow: **question → data → EDA → model → interpretation → decision**.
-4. Run a short Colab notebook and submit a clean output.
+1. Explain what is **AI** and **Gen AI**. 
+2. Explain the differences between **Analytics**, **Data Science**, **AI**, and **Machine Learning (ML)**.
+3. Distinguish **supervised** vs **unsupervised** learning using business/econ examples.
+4. Describe a full workflow: **question → data → EDA → model → interpretation → decision**.
+5. Run a short Colab notebook and submit a clean output.
 :::
 
 ## Why this matters
@@ -19,14 +20,22 @@ This course treats AI as part of an **evidence workflow**, not a shortcut.
 A powerful model cannot rescue a weak question, poor data, or unclear interpretation.
 :::
 
+## What is AI, Gen AI?
+
+**Artificial Intelligence (AI):** Systems that can perform tasks that normally require human intelligence—such as recognizing patterns, making predictions, or recommending actions—by processing inputs (data, text, images) to produce outputs that support decisions.
+
+**Generative AI:** A type of AI that can generate **new** content (text, code, images, etc.). 
+
+In this course, AI is treated as a tool within an evidence workflow (data → analysis → evaluation → communication) and will be used mainly as an **assistant** for tasks like planning an analysis, drafting explanations, and scaffolding code. Outputs must be verified (run the code, check the data, confirm sources) and should not be copied into assignments without understanding and proper disclosure where required.
+
 ## The big picture: Analytics vs DS vs AI vs ML
 
 :::{admonition} Key idea
 :class: important
-- **Analytics**: describing and explaining data to support decisions (dashboards, KPIs, A/B testing).
-- **Data Science**: building reproducible data workflows and products (pipelines, prediction services).
-- **AI**: a broad goal — machines performing tasks that normally require “intelligence.”
-- **ML**: methods that learn patterns from data (prediction, classification, clustering).
+- **Analytics**: Describing and explaining data to support decisions (dashboards, KPIs, A/B testing).
+- **Data Science**: Building reproducible data workflows and products (pipelines, prediction services).
+- **AI**: A broad goal — machines performing tasks that normally require “intelligence.”
+- **ML**: Methods that learn patterns from data (prediction, classification, clustering).
 :::
 
 ### A simple map (think tasks)
@@ -67,9 +76,12 @@ Unsupervised outputs (clusters/components) are not “truth.” They are useful 
 
 :::{admonition} Colab link
 :class: tip
-- Week 1 notebook: https://colab.research.google.com/drive/PASTE_NOTEBOOK_ID
+- Week 1 notebook: https://colab.research.google.com/drive/10glGa_MOiioBAYPg9s1lnGhzVm3JclTY?usp=sharing
 :::
 
+Churn Data: https://drive.google.com/file/d/1CcOCXyGM9GLFmzFbKfmIhioM-yLDkDqU/view?usp=sharing
+
+<!--
 **Submission (after class):**
 - Share the Colab link (view permission) **or** export to PDF.
 - Upload via LMS.
@@ -83,6 +95,7 @@ If you use an AI tool this week:
 2. Verify code and claims by running the notebook and checking sources.
 3. You must be able to explain your final result in your own words.
 :::
+-->
 
 ## Review questions (quiz / reflection)
 1. Give one example each of analytics, data science, and ML in business.
@@ -93,4 +106,3 @@ If you use an AI tool this week:
 :class: note
 In ~150 words: What kind of business/econ question would you like to analyze this semester, and why?
 :::
-

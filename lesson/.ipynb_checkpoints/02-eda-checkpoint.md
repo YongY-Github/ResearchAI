@@ -145,19 +145,20 @@ Caveat: “Missing marketing data is concentrated in one region, which may bias 
 
 :::{admonition} Colab link
 :class: tip
-Replace this with your real link:
-
-- Week 2 notebook (EDA): https://colab.research.google.com/drive/PASTE_NOTEBOOK_ID
+- Week 2 notebook: https://colab.research.google.com/drive/10glGa_MOiioBAYPg9s1lnGhzVm3JclTY?usp=sharing
 :::
+
+Churn Data: https://drive.google.com/file/d/1CcOCXyGM9GLFmzFbKfmIhioM-yLDkDqU/view?usp=sharing
+
 
 **In-class tasks (checkpoints)**
 1. Print data types and basic shape
 2. Create a missingness summary table
 3. Produce: (i) histogram/boxplot, (ii) line chart, (iii) bar chart by category
-4. Write **3 insights + 1 caveat** in markdown inside the notebook
+4. Submit **3 insights + 1 caveat** in markdown inside the notebook
 
 **Submission**
-- Upload the Colab link (view permission) **or** export to PDF.
+- [LINK](https://docs.google.com/forms/d/e/1FAIpQLScWZcX2QzG8HVGJHRyX4pHhc9uOOP_ijnLBSe-QK9sWKKLiBQ/viewform?usp=publish-editor)
 
 ---
 
@@ -190,3 +191,6 @@ AI can help you brainstorm EDA steps and plot types, but you must:
 :class: note
 In ~150 words: Describe one dataset you might analyze (real or imagined). What is the unit of observation, and what are two EDA questions you would ask first?
 :::
+
+Kindly submit Reflection prompts for Lesson 1 and Lesson 2 here (before next class).
+https://docs.google.com/forms/d/e/1FAIpQLSfsq2ln4ru9G1Mtt8Huezzl52RbNw0SFnXyeMj9g2wuudt8UQ/viewform?usp=publish-editor
