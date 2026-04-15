@@ -5,9 +5,9 @@
 By the end of Lesson 1, you should be able to:
 1. Explain what is **AI** and **Gen AI**. 
 2. Explain the differences between **Analytics**, **Data Science**, **AI**, and **Machine Learning (ML)**.
-3. Distinguish **supervised** vs **unsupervised** learning using business/econ examples.
+3. Identify the **unit of observation**, **target/outcome**, and **features** in a dataset (using churn)
 4. Describe a full workflow: **question → data → EDA → model → interpretation → decision**.
-5. Run a short Colab notebook and submit a clean output.
+5. Set up and run a minimal Colab notebook (load data, preview, simple counts)
 :::
 
 ## Why this matters
@@ -44,24 +44,13 @@ In this course, AI is treated as a tool within an evidence workflow (data → an
 - **Predict**: What will happen next? (supervised ML)
 - **Segment**: Are there different types of users/markets? (unsupervised ML)
 
-## Supervised vs unsupervised learning
-
 :::{admonition} Key idea
 :class: important
 - **Supervised learning** uses labeled outcomes (e.g., churn = yes/no; sales next month).
 - **Unsupervised learning** finds structure without labeled outcomes (e.g., customer segments).
 :::
 
-### Examples
-- Supervised (regression): predict **sales** from marketing spend and price.
-- Supervised (classification): predict **churn** from usage patterns.
-- Unsupervised (clustering): group customers into **segments**.
-- Unsupervised (PCA): compress many survey items into a few **dimensions**.
-
-:::{admonition} Common pitfall
-:class: warning
-Unsupervised outputs (clusters/components) are not “truth.” They are useful summaries that require interpretation and validation.
-:::
+Later we’ll cover two learning modes: prediction with labels and pattern-finding without labels
 
 ## Mini example: a churn workflow (end-to-end)
 
