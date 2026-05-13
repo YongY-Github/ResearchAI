@@ -12,6 +12,7 @@ By the end of Lesson 1, you should be able to:
 
 ## Why this matters
 
+In this course, we treat analytics and AI as part of a reproducible workflow rather than isolated tools or models.
 Many “AI projects” fail for simple reasons: unclear questions, weak data, and over-confident interpretation.
 This course treats AI as part of an **evidence workflow**, not a shortcut.
 
@@ -27,6 +28,11 @@ A powerful model cannot rescue a weak question, poor data, or unclear interpreta
 **Generative AI:** A type of AI that can generate **new** content (text, code, images, etc.). 
 
 In this course, AI is treated as a tool within an evidence workflow (data → analysis → evaluation → communication) and will be used mainly as an **assistant** for tasks like planning an analysis, drafting explanations, and scaffolding code. Outputs must be verified (run the code, check the data, confirm sources) and should not be copied into assignments without understanding and proper disclosure where required.
+
+:::{admonition} Note
+:class: note
+AI will be treated as a workflow assistant rather than an automated answer machine.
+:::
 
 ## The big picture: Analytics vs DS vs AI vs ML
 
@@ -44,6 +50,7 @@ In this course, AI is treated as a tool within an evidence workflow (data → an
 - **Predict**: What will happen next? (supervised ML)
 - **Segment**: Are there different types of users/markets? (unsupervised ML)
 
+<!--
 :::{admonition} Key idea
 :class: important
 - **Supervised learning** uses labeled outcomes (e.g., churn = yes/no; sales next month).
@@ -51,6 +58,7 @@ In this course, AI is treated as a tool within an evidence workflow (data → an
 :::
 
 Later we’ll cover two learning modes: prediction with labels and pattern-finding without labels
+-->
 
 ## Mini example: a churn workflow (end-to-end)
 
@@ -70,10 +78,13 @@ Later we’ll cover two learning modes: prediction with labels and pattern-findi
 
 Churn Data: https://drive.google.com/file/d/1CcOCXyGM9GLFmzFbKfmIhioM-yLDkDqU/view?usp=sharing
 
-<!--
-**Submission (after class):**
-- Share the Colab link (view permission) **or** export to PDF.
-- Upload via LMS.
+Throughout the semester, students will gradually build:
+- prompt logs,
+- workflow notes,
+- reflections,
+- and reusable analytical workflows.
+
+These will later become part of a lightweight “Research OS.”
 
 ## AI check (responsible use)
 
@@ -84,7 +95,6 @@ If you use an AI tool this week:
 2. Verify code and claims by running the notebook and checking sources.
 3. You must be able to explain your final result in your own words.
 :::
--->
 
 ## Review questions (quiz / reflection)
 1. Give one example each of analytics, data science, and ML in business.

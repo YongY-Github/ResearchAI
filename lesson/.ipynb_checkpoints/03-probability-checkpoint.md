@@ -1,184 +1,577 @@
-# Lesson 3 — Probability Foundations in Context (with Simulation)
+---
+kernelspec:
+  name: jb2-env
+  display_name: Python (jb2-env)
+---
+
+# Lesson 3 — Probability Foundations in Context
 
 :::{admonition} Learning goals
 :class: tip
-By the end of Lesson 3, you should be able to:
-1. Explain probability as a tool for **decision-making under uncertainty** (not just math).
-2. Use simulation to approximate probabilities, expected values, and uncertainty.
-3. Work with basic random variables (Bernoulli/binomial and “arrivals” intuition).
-4. Communicate uncertainty clearly (what we know, what we don’t, and why).
+
+By the end of this lesson, you should be able to:
+
+1. Explain probability as a way to reason about uncertainty.
+2. Use simulation to build intuition about probability distributions.
+3. Use AI tools to help generate and modify Python code.
+4. Interpret probabilities using visualization and relative frequencies.
+5. Reflect critically on AI-generated outputs and workflow.
+
 :::
 
-## Why this matters (motivation)
-
-In business/economics, you rarely get certainty. You get **risk**:
-- Will demand exceed capacity?
-- Will a customer churn?
-- Will a screening rule flag too many false positives?
-- How much revenue variability should we expect next month?
-
-Probability gives a disciplined way to think about these questions.
-
-:::{admonition} Reality check
+:::{admonition} AI tools
 :class: note
-Good decisions are often about managing the *distribution* of outcomes, not maximizing a single “best guess.”
+
+Any major LLM (Large Language Model) is acceptable for this course.
+
+Examples include:
+- ChatGPT,
+- Claude,
+- Gemini,
+- Copilot,
+- DeepSeek,
+- and similar AI assistants.
+
+However, ChatGPT is recommended as the default option because:
+- it can generate Python code,
+- explain concepts interactively,
+- and (in some versions) execute Python code directly.
+
+The goal of the course is not loyalty to a particular tool.
+
+The goal is learning:
+- analytical reasoning,
+- workflow design,
+- verification,
+- and responsible AI-assisted research.
+
 :::
 
 ---
 
-## Probability as a language for uncertainty
+# 1.0 Probability as a Language for Uncertainty
 
-:::{admonition} Key idea
-:class: important
-Probability is a way to quantify uncertainty and compare strategies.
-It helps you reason about:
-- **likelihood** (“How often does this happen?”)
-- **risk** (“How bad is it when it happens?”)
-- **trade-offs** (“Which error is more costly?”)
-:::
+Probability helps us reason about uncertainty.
 
-### Frequentist intuition (what we use today)
-If you repeat a process many times (real or simulated),
-probability is the **long-run proportion** of outcomes.
-
----
-
-## Random variables (intuitive definitions)
-
-:::{admonition} Key idea
-:class: important
-A **random variable** assigns a number to each uncertain outcome.
 Examples:
-- $X$ = number of customers who arrive in an hour
-- $Y$ = whether a customer churns next month (1 = yes, 0 = no)
-- $R$ = revenue from a marketing campaign
-:::
-
-### Two core quantities
-- **Expected value**: the long-run average (“typical level”)
-- **Variance / SD**: the typical spread (“how uncertain”)
-
----
-
-## Common business distributions (light intuition)
-
-### Bernoulli (yes/no outcomes)
-- Example: customer churns (yes/no), email clicked (yes/no)
-
-### Binomial (number of successes out of n)
-- Example: out of 100 customers contacted, how many convert?
-
-### Arrivals (count per time, intuition only)
-- Example: customer arrivals per hour, website requests per minute
-- We often model these as a “count process” with variability.
-
-:::{admonition} Common pitfall
-:class: warning
-People confuse “expected value” with “most likely value.”
-A distribution can have a mean that is not the most frequent outcome.
-:::
-
----
-
-## Simulation (Monte Carlo): your practical workhorse
+- Will a customer make a purchase?
+- How many users will visit a website?
+- How variable are human heights?
+- How likely is an unusually high or low outcome?
 
 :::{admonition} Key idea
 :class: important
-When exact calculation is hard (or when you want to test assumptions),
-simulate the process many times and compute:
-- estimated probabilities,
-- expected outcomes,
-- and uncertainty ranges.
+
+Probability is a way to quantify uncertainty and compare outcomes.
+
 :::
 
-### Why simulation is powerful
-- Works even when formulas are messy
-- Makes assumptions explicit
-- Helps build intuition quickly
+One useful interpretation is the **frequentist interpretation**:
+
+If we repeat a process many times,
+probability is the long-run proportion of outcomes.
+Simulation allows us to approximate these long-run proportions computationally.
 
 ---
 
-## Mini case 1: Capacity planning (arrivals)
+# 2.0 Human Heights and the Normal Distribution
 
-**Scenario:** A café has capacity for 40 customers per hour.  
-You want to estimate: $P(\text{arrivals} > 40)$.
+Suppose human heights are approximately Normally distributed with:
 
-Steps:
-1. Choose a simple model for arrivals (we’ll start with a reasonable assumption).
-2. Simulate many hours.
-3. Count the share of hours where arrivals exceed 40.
+```{math}
+:enumerated: false
+\mu = 170, \quad \sigma = 5
+```
 
-:::{admonition} Reality check
-:class: note
-The model is not “truth.” But it can still guide decisions if the assumptions are transparent and tested.
-:::
+where:
+- $\mu$ is the mean,
+- $\sigma$ is the standard deviation.
 
----
-
-## Mini case 2: Marketing conversion (binomial)
-
-**Scenario:** Conversion rate is about 5%. You contact 200 customers.  
-What is:
-- expected conversions?
-- probability conversions are below 5 (a disappointing campaign)?
-- how variable is the outcome?
-
-This is a binomial-style situation, and simulation gives quick answers.
+This means:
+- most observations should cluster near the mean,
+- while extremely high or low values should be relatively rare.
 
 ---
 
-## Mini-lab (Google Colab)
+## 2.1 AI Prompt for Python Code
 
-:::{admonition} Colab link
-:class: tip
-Replace this with your real link:
+Suppose we want to simulate human heights using Python.
 
-- Week 3 notebook (Probability + simulation): https://colab.research.google.com/drive/PASTE_NOTEBOOK_ID
-:::
+One possible prompt is:
 
-**In-class tasks (checkpoints)**
-1. Simulate 10,000 Bernoulli trials and estimate a probability.
-2. Simulate a binomial process (conversions out of $n$) and summarize the distribution.
-3. Compute:
-   - an estimated probability of a “bad outcome” (e.g., conversions ≤ threshold),
-   - an expected value,
-   - and a simple uncertainty summary (e.g., 5th–95th percentile).
-4. Write a short interpretation in business language:
-   - “What is likely?”
-   - “What is risky?”
-   - “What action would you take?”
+```text
+Write Python code to:
+- simulate 400 human heights,
+- assuming heights follow a normal distribution with:
+    mean = 170 cm
+    standard deviation = 5 cm
 
-**Submission**
-- Colab link (view permission) or PDF export.
+Then:
+1. print a few simulated heights,
+2. plot a histogram using relative frequencies,
+3. compute the proportion of heights between 170 and 175 cm.
+```
 
----
-
-## AI check (responsible use for probability work)
-
-:::{admonition} AI check
+:::{admonition} Important
 :class: caution
-AI can help you draft simulation code, but you must:
-1. Verify the logic by checking small cases (e.g., $n=10$) and sanity checks.
-2. Confirm the distribution matches the story (e.g., conversions can’t be negative).
-3. Record prompts and edits in your prompt/workflow log.
+
+Prompting is not magic wording.
+
+Prompting is a form of structured reasoning:
+- describing the problem,
+- specifying the task,
+- and communicating what output we want.
+
 :::
-
-**Good prompt examples**
-- “Write Python code to simulate conversions with p=0.05 for n=200 repeated 10,000 times.”
-- “How do I compute the probability conversions ≤ 5 from simulated results?”
-
-**Bad prompt example**
-- “Give me the final answer and interpretation without showing calculations.”
 
 ---
 
-## Review questions (quiz / reflection)
+## 2.2 AI-Generated Python Code
 
-1. What is the difference between **expected value** and **most likely outcome**?
-2. Why can simulation be useful even when a formula exists?
-3. In a conversion campaign, which risk matters more: unusually low conversions or unusually high conversions? Why?
+```{code-cell} python
 
-:::{admonition} Reflection prompt
-:class: note
-In ~150 words: Describe one uncertainty problem in business/economics you care about. What would you simulate, and what decision would it inform?
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Set seed for reproducibility
+np.random.seed(1001)
+
+# Simulate heights
+heights = np.random.normal(
+    loc=170,
+    scale=5,
+    size=400
+)
+
+# Show first 20 heights
+print(heights[:20])
+
+print("...")
+
+# Show last 20 heights
+print(heights[-20:])
+
+```
+
+---
+
+## 2.3 Histogram of Simulated Heights
+
+```{code-cell} python
+
+plt.hist(
+    heights,
+    bins=20,
+    density=True,
+    edgecolor='black'
+)
+
+plt.xlabel("Height (cm)")
+plt.ylabel("Relative Frequency")
+plt.title("Simulated Human Heights")
+
+plt.show()
+
+```
+
+:::{admonition} Empirical Rule (68–95–99.7 Percent Rule)
+:class: important
+
+For a Normal distribution:
+
+- about 68% of observations lie within 1 standard deviation of the mean,
+- about 95% lie within 2 standard deviations,
+- about 99.7% lie within 3 standard deviations.
+
+This helps us understand:
+- what is “typical,”
+- what is “unusual,”
+- and why extreme outcomes are relatively rare.
+
 :::
+
+---
+
+## 2.4 Estimating a Probability from Simulation
+
+We can estimate probabilities using simulated data.
+
+For example:
+
+> What proportion of individuals have heights between 170 and 175 cm?
+
+```{code-cell} python
+
+prop = np.mean(
+    (heights >= 170) &
+    (heights <= 175)
+)
+
+print("Proportion between 170 and 175 cm:", prop)
+
+```
+
+> Does the probability makes sense? Think about the empirical rule.
+
+
+---
+
+# 3.0 Reflection
+
+Think about the following questions:
+
+1. Why are most observations close to the mean?
+2. Why are extremely high or low heights relatively rare?
+3. What is the proportion between 165 and 175 cm for the above heights example? Verify this with Python code.
+4. What happens if the standard deviation increases?
+5. What happens if the sample size increases?
+6. What did simulation help you understand about probability?
+
+Hint: Try changing
+
+```python
+    scale=10,
+```
+
+```python
+    size=1000
+```
+
+The distribution above is an example of a **Normal distribution**.
+
+---
+
+# 4.0 The Normal Distribution
+
+:::{admonition} Example AI prompt for Explainer
+:class: note
+
+```text
+Explain the Normal distribution in simple language suitable for beginner students.
+
+Then provide:
+1. a short intuitive explanation,
+2. the Normal distribution formula in LaTeX,
+3. explanations of:
+   - mean,
+   - standard deviation,
+4. and some real-world example.
+```
+
+:::
+
+The Normal distribution is one of the most important probability distributions in statistics and data science.
+
+It is:
+- symmetric,
+- bell-shaped,
+- and centered around a mean value.
+
+Many real-world quantities are approximately Normally distributed, including:
+- human heights,
+- exam scores,
+- measurement errors,
+- and some economic variables.
+
+The probability density function $PDF$ is:
+
+```{math}
+:enumerated: false
+f(x)=\frac{1}{\sigma\sqrt{2\pi}}
+\exp\left(
+-\frac{(x-\mu)^2}{2\sigma^2}
+\right)
+```
+
+where:
+- $\mu$ is the mean (center of the distribution),
+- $\sigma$ is the standard deviation (spread of the distribution).
+
+:::{admonition} Key idea
+:class: important
+
+The mean determines the location of the distribution,
+while the standard deviation determines how spread out the observations are.
+
+:::
+
+---
+
+## 4.1 The Standard Normal Distribution
+
+The **standard normal distribution** is a special case with:
+
+```{math}
+:enumerated: false
+\mu = 0, \quad \sigma = 1
+```
+
+The Normal distribution appears frequently in:
+- economics,
+- finance,
+- machine learning,
+- and scientific measurement.
+
+The standard normal distribution is useful because many probability calculations can be converted into this standardized form.
+
+---
+
+# 5.0 Coin Tossing and Bernoulli Trials
+
+Suppose:
+- Heads = 1
+- Tails = 0
+
+Each coin toss has:
+- two possible outcomes,
+- equal probability,
+- and independent trials.
+
+This type of process is called a **Bernoulli trial**.
+
+---
+
+## 5.1 AI Prompt for Python Code
+
+```text
+Write Python code to:
+- simulate 100 fair coin tosses,
+- display the number of heads and tails,
+- and plot a histogram using relative frequencies.
+```
+
+---
+
+## 5.2 AI-Generated Python Code
+
+```{code-cell} python
+
+# Simulate 100 fair coin tosses
+tosses = np.random.choice([0,1], size=100)
+
+# Count outcomes
+print("Heads:", sum(tosses))
+print("Tails:", 100 - sum(tosses))
+
+```
+
+---
+
+## 5.3 Histogram of Coin Tosses
+
+```{code-cell} python
+
+plt.hist(
+    tosses,
+    bins=[-0.5,0.5,1.5],
+    density=True,
+    edgecolor='black'
+)
+
+plt.xticks([0,1], ['Tails','Heads'])
+
+plt.xlabel("Outcome")
+plt.ylabel("Relative Frequency")
+plt.title("Histogram of Coin Tosses")
+
+plt.show()
+```
+
+---
+
+## 5.4 AI Prompt
+
+```text
+Explain the Binomial distribution in simple language suitable for beginner students.
+
+Then provide:
+1. a short intuitive explanation,
+2. the Binomial probability mass function in LaTeX,
+3. explanations of:
+   - n
+   - k
+   - p
+4. one real-world example.
+```
+
+## 5.5 The Binomial Distribution
+
+The Binomial distribution models the number of successes obtained from repeated independent trials.
+
+Examples include:
+- number of customers who make a purchase,
+- number of students who pass an exam,
+- number of defective products,
+- or number of heads in repeated coin tosses.
+
+Suppose:
+- each trial has only two outcomes,
+  - success or failure,
+- the probability of success remains constant,
+- and trials are independent.
+
+The Binomial distribution tells us:
+
+> “What is the probability of getting exactly $k$ successes out of $n$ trials?”
+
+The probability mass function is:
+
+```{math}
+:enumerated: false
+P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}
+```
+
+where:
+- $n$ = number of trials,
+- $k$ = number of successes,
+- $p$ = probability of success on each trial.
+
+:::{admonition} Key idea
+:class: important
+
+The Binomial distribution models repeated yes/no type outcomes,
+such as:
+- purchase or not,
+- pass or fail,
+- click or no click,
+- heads or tails.
+
+:::
+
+---
+
+## 5.6 Example: Marketing Conversion
+
+Suppose:
+- a company emails 200 customers,
+- each customer has a 5% probability of purchasing.
+
+The Binomial distribution can model:
+- the probability of exactly 10 purchases,
+- or the probability of unusually low conversions.
+
+---
+
+# 6.0 Other Useful Probability Distributions
+
+## 6.1 Exponential Distribution
+
+The Exponential distribution models waiting times between random events.
+
+Examples include:
+- time until the next customer arrives,
+- waiting time between website visits,
+- time until machine failure,
+- or time between phone calls.
+
+The probability density function is:
+
+```{math}
+:enumerated: false
+f(x)=\lambda e^{-\lambda x}, \quad x \geq 0
+```
+
+where:
+- $\lambda$ is the rate parameter,
+- larger $\lambda$ means events occur more frequently.
+
+:::{admonition} Key idea
+:class: important
+
+The Exponential distribution models waiting time.
+
+If events occur frequently,
+waiting times tend to be shorter.
+
+:::
+
+Example prompt:
+
+```text
+Write Python code to generate and plot an Exponential distribution with different parameters.
+```
+
+---
+
+## 6.2 The Poisson Distribution
+
+The Poisson distribution models the number of events occurring within a fixed interval.
+
+Examples include:
+- number of customer arrivals,
+- number of website visits per minute,
+- number of accidents per day,
+- or number of emails received in an hour.
+
+The probability mass function is:
+
+```{math}
+:enumerated: false
+P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!}
+```
+
+where:
+- $\lambda$ is the average number of events,
+- $k$ is the number of observed events.
+
+:::{admonition} Key idea
+:class: important
+
+The Poisson distribution models counts of events.
+
+Larger values of $\lambda$ imply more frequent events on average.
+
+:::
+
+Example prompt:
+
+```text
+Write Python code to simulate a Poisson distribution with different values of lambda and plot histograms.
+```
+
+---
+
+# 7.0 Reflection on AI Workflow
+
+AI can help us:
+- generate code,
+- explain concepts,
+- and accelerate experimentation.
+
+However, humans remain responsible for:
+- interpretation,
+- verification,
+- and reasoning.
+
+:::{admonition} Key takeaway
+:class: important
+
+AI reduces friction,
+but does not replace thinking.
+
+:::
+
+---
+
+# 8.0 Homework
+
+1. Explore the Exponential distribution.
+2. Explore the Poisson distribution.
+3. Generate histograms with different parameters.
+4. Save useful prompts into:
+
+```text
+prompts/useful_prompts.md
+```
+
+5. Write a short reflection in:
+
+```text
+personal_log.md
+```
+
+---
+
+# 9.0 Resources
+
+

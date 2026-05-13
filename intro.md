@@ -2,15 +2,23 @@
 
 Welcome to notes prepared for **Research with AI** @ Ritsumeikan Univeristy 2026. 
 
-The course introduces Gen AI, data science and ML for business/economics decision-making. Topics include data literacy and visualization, probability and
-inference, regression, basic supervised vs. unsupervised learning (e.g., classification, clustering), web scraping, text analysis and the responsible use of AI. Classes
-combine short lectures with hands-on exercises using Python in Google Colab. Students submit Colab notebooks and short reflections; feedback is provided
-through in-class review, rubric-based comments on submissions, and quiz explanations.
+The course introduces modern data analysis, AI-assisted research workflows, and foundational machine learning for business and economics decision-making. Topics include data literacy and visualization, probability and inference, regression, basic supervised vs. unsupervised learning (e.g., classification, clustering), web scraping, text analysis and the responsible use of AI. Classes combine short lectures with hands-on exercises using Python in Google Colab. Students submit Colab notebooks and short reflections; feedback is provided through in-class review, rubric-based comments on submissions, and quiz explanations.
 
 The course is organized into three phases: (1) foundations and data access (Classes 1–4), (2) the core analytics toolkit (Classes 5–10), and (3) AI-enabled research workflows, responsible AI, and synthesis through a capstone (Classes 11–14).
 
 At the end of the course, students will be able to (1) describe data using appropriate visualizations and summary statistics, (2) apply basic probability and inference to real questions, (3) run and interpret simple/multiple regression, (4) explain supervised vs. unsupervised learning and apply basic examples, and (5) critically evaluate AI outputs and use AI tools to conduct academic research responsibly in analysis and reporting.
 
+A central theme of the course is the development of a lightweight
+“Research Operating System” (Research OS).
+
+Students will build:
+- workflow logs,
+- prompt logs,
+- data source notes,
+- reproducible notebooks,
+- and project knowledge systems (“brains”)
+
+to support reflective, transparent, and AI-assisted research workflows.
 **Tool Options (Python-first with Low-code Alternative)**
 This course is taught using Python in Google Colab as the recommended default for hands-on analysis and reproducibility. Students who have limited programming background may choose an approved low-code workflow tool (e.g., RapidMiner or Orange) for selected practical tasks. Regardless of tool choice, students must demonstrate the same learning outcomes and submit the same evidence: (i) a data source note, (ii) a cleaning/preprocessing log, (iii) required outputs (tables/plots/evaluation metrics), (iv) an interpretation memo with limitations, and (v) a prompt/workflow log if generative AI tools were used. Grades prioritize reasoning, verification, and communication rather than tool complexity.
 
@@ -28,7 +36,7 @@ Students should choose one primary lane (Python or low-code) early in the semest
   - Supervised vs unsupervised learning
 - **Class 2 — Data Literacy & Exploratory Data Analysis**
   - (Optional) Python-for-data mini-bootcamp
-- **Class 3 — Probability Foundations in Context**
+- **Class 3 — Probability Foundations in Context (with Simulation and AI)**
   - Simulation and intuition
 - **Class 4 — Data Collection**
   - APIs and responsible data sourcing
@@ -49,10 +57,10 @@ Students should choose one primary lane (Python or low-code) early in the semest
 - **Class 11 — Scientific Research with AI in Social Sciences**
   - Literature mapping, evidence synthesis, qualitative coding
   - Capstone proposal v1
-- **Class 12 — AI Literacy**
+- **Class 12 — AI Workflows & Verification**
   - Prompting, verification, hallucinations, prompt logs
   - Human-in-the-loop “agentic” workflows
-- **Class 13 — Ethics, Fairness & Responsible AI**
+- **Class 13 — Responsible AI Systems**
   - Privacy, bias, explainability, deployment checklist
 - **Class 14 — Capstone Presentations & Course Wrap-Up**
   - Submission checklist and grading rubric

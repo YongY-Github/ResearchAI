@@ -15,6 +15,7 @@ project:
       children:
         - file: lesson/01-foundations.md
         - file: lesson/02-eda.md
+        - file: lesson/02-ResearchOS.md
         - file: lesson/03-probability.md
         - file: lesson/04-apis.md
         - file: lesson/05-cleaning.md

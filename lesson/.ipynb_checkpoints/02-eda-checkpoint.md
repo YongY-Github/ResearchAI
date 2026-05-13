@@ -46,6 +46,8 @@ EDA is not just “making charts.” It is a structured way to answer:
 5. **Visualize**: choose the right chart for the question  
 6. **Write**: 3–5 plain-language insights + 1 caveat
 
+This EDA checklist forms part of a reproducible analytical workflow that we will use repeatedly throughout the course.
+
 ---
 
 ## Data literacy essentials (types and pitfalls)
@@ -179,6 +181,8 @@ AI can help you brainstorm EDA steps and plot types, but you must:
 **Bad prompt example**
 - “Write my EDA conclusions for me” (without your own verification and interpretation)
 
+AI can help generate EDA ideas and code scaffolding, but interpretation and verification remain human responsibilities.
+
 ---
 
 ## Review questions (quiz / reflection)
@@ -194,3 +198,5 @@ In ~150 words: Describe one dataset you might analyze (real or imagined). What i
 
 Kindly submit Reflection prompts for Lesson 1 and Lesson 2 here (before next class).
 https://docs.google.com/forms/d/e/1FAIpQLSfsq2ln4ru9G1Mtt8Huezzl52RbNw0SFnXyeMj9g2wuudt8UQ/viewform?usp=publish-editor
+
+In the next lesson, we will begin organizing prompts, reflections, and workflows into a lightweight “Research OS” for managing analytical projects.
