@@ -9,7 +9,7 @@ By the end of Lesson 2, you should be able to:
 4. Create a small set of clear plots and write a short **data story** for a business audience.
 :::
 
-## Why this matters (motivation)
+# 1.0 Why this matters (motivation)
 
 Most mistakes in analytics happen **before** modeling:
 - confusing data types (e.g., numbers stored as strings),
@@ -26,7 +26,7 @@ If you skip EDA, you often end up fitting models to artifacts: missing data patt
 
 ---
 
-## The EDA mindset: what questions are we asking?
+# 2.0 The EDA mindset: what questions are we asking?
 
 :::{admonition} Key idea
 :class: important
@@ -38,7 +38,8 @@ EDA is not just “making charts.” It is a structured way to answer:
 5. **What relationships look plausible?** (before causal claims)
 :::
 
-### A simple EDA checklist (what we do every time)
+## 2.1 A simple EDA checklist (what we do every time)
+
 1. **Preview**: rows, columns, data types  
 2. **Validate**: missing values, duplicates, impossible values  
 3. **Summarize**: distributions (center + spread)  
@@ -50,9 +51,10 @@ This EDA checklist forms part of a reproducible analytical workflow that we will
 
 ---
 
-## Data literacy essentials (types and pitfalls)
+# 3.0 Data literacy essentials (types and pitfalls)
 
-### Data types that matter
+## 3.1 Data types that matter
+
 - **Numeric**: revenue, price, age
 - **Categorical**: region, product category, plan type
 - **Datetime**: purchase date, signup date
@@ -63,7 +65,8 @@ This EDA checklist forms part of a reproducible analytical workflow that we will
 Treating IDs as numeric features (e.g., averaging customer_id) is meaningless and can break models.
 :::
 
-### Missing values: what they *might* mean
+## 3.2 Missing values: what they *might* mean
+
 Missingness can be:
 - **random** (e.g., occasional logging failures), or
 - **systematic** (e.g., income missing more for high-income respondents).
@@ -76,26 +79,27 @@ A quick missingness table by group often reveals the story.
 
 ---
 
-## Descriptive statistics that students actually use
+# 4.0 Descriptive statistics that students actually use
 
 :::{admonition} Key idea
 :class: important
 Use **mean** when distributions are roughly symmetric; use **median/IQR** when there are outliers or skew.
 :::
 
-### Core summary numbers
+## 4.1 Core summary numbers
+
 - **Mean**: average level
 - **Median**: typical value (robust to outliers)
 - **Standard deviation (SD)**: overall spread
 - **Interquartile range (IQR)**: spread of the middle 50%
 
-### What to report (rule of thumb)
+## 4.2 What to report (rule of thumb)
 - If the histogram looks symmetric: **mean ± SD**
 - If it looks skewed: **median + IQR**
 
 ---
 
-## Visualization as a decision tool (not decoration)
+# 5.0 Visualization as a decision tool (not decoration)
 
 :::{admonition} Key idea
 :class: important
@@ -103,7 +107,8 @@ A good chart answers a specific question.
 A great chart makes the conclusion obvious without overselling certainty.
 :::
 
-### Quick chart chooser (practical)
+## 5.1 Quick chart chooser (practical)
+
 - Compare categories → **bar chart** (sorted)
 - Trend over time → **line chart**
 - Relationship between two numeric variables → **scatter plot**
@@ -121,7 +126,7 @@ A chart can be “technically correct” but still misleading due to:
 
 ---
 
-## Mini case: “Sales and marketing” dataset (EDA story)
+# 6.0 Mini case: “Sales and marketing” dataset (EDA story)
 
 **Question:** “Which product categories grew, and is growth associated with marketing spend?”
 
@@ -143,15 +148,17 @@ Caveat: “Missing marketing data is concentrated in one region, which may bias 
 
 ---
 
-## Mini-lab (Google Colab)
+# 7.0 Mini-lab (Google Colab)
 
 :::{admonition} Colab link
 :class: tip
-- Week 2 notebook: https://colab.research.google.com/drive/10glGa_MOiioBAYPg9s1lnGhzVm3JclTY?usp=sharing
+- [Accompanying Google Colab: Week 2](https://colab.research.google.com/drive/10glGa_MOiioBAYPg9s1lnGhzVm3JclTY?usp=sharing)
 :::
 
-Churn Data: https://drive.google.com/file/d/1CcOCXyGM9GLFmzFbKfmIhioM-yLDkDqU/view?usp=sharing
-
+:::{admonition} Link to Churn data
+:class: important
+- [Churn data](https://drive.google.com/file/d/1CcOCXyGM9GLFmzFbKfmIhioM-yLDkDqU/view?usp=sharing)
+:::
 
 **In-class tasks (checkpoints)**
 1. Print data types and basic shape
@@ -164,7 +171,7 @@ Churn Data: https://drive.google.com/file/d/1CcOCXyGM9GLFmzFbKfmIhioM-yLDkDqU/vi
 
 ---
 
-## AI check (responsible use for EDA)
+# 8.0 AI check (responsible use for EDA)
 
 :::{admonition} AI check
 :class: caution
@@ -185,7 +192,7 @@ AI can help generate EDA ideas and code scaffolding, but interpretation and veri
 
 ---
 
-## Review questions (quiz / reflection)
+# 9.0 Review questions (quiz / reflection)
 
 1. When would you report **median and IQR** instead of mean and SD?
 2. Give one example of **systematic missingness** in a business dataset.

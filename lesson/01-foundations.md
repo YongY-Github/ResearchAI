@@ -10,7 +10,7 @@ By the end of Lesson 1, you should be able to:
 5. Set up and run a minimal Colab notebook (load data, preview, simple counts)
 :::
 
-## Why this matters
+# 1.0 Why this matters
 
 In this course, we treat analytics and AI as part of a reproducible workflow rather than isolated tools or models.
 Many “AI projects” fail for simple reasons: unclear questions, weak data, and over-confident interpretation.
@@ -21,7 +21,7 @@ This course treats AI as part of an **evidence workflow**, not a shortcut.
 A powerful model cannot rescue a weak question, poor data, or unclear interpretation.
 :::
 
-## What is AI, Gen AI?
+# 2.0 What is AI, Gen AI?
 
 **Artificial Intelligence (AI):** Systems that can perform tasks that normally require human intelligence—such as recognizing patterns, making predictions, or recommending actions—by processing inputs (data, text, images) to produce outputs that support decisions.
 
@@ -34,7 +34,7 @@ In this course, AI is treated as a tool within an evidence workflow (data → an
 AI will be treated as a workflow assistant rather than an automated answer machine.
 :::
 
-## The big picture: Analytics vs DS vs AI vs ML
+# 3.0 The big picture: Analytics vs DS vs AI vs ML
 
 :::{admonition} Key idea
 :class: important
@@ -44,7 +44,7 @@ AI will be treated as a workflow assistant rather than an automated answer machi
 - **ML**: Methods that learn patterns from data (prediction, classification, clustering).
 :::
 
-### A simple map (think tasks)
+## 3.1 A simple map (think tasks)
 - **Describe**: What happened? (EDA, visualization)
 - **Explain**: Why might it have happened? (regression, causal thinking)
 - **Predict**: What will happen next? (supervised ML)
@@ -60,7 +60,7 @@ AI will be treated as a workflow assistant rather than an automated answer machi
 Later we’ll cover two learning modes: prediction with labels and pattern-finding without labels
 -->
 
-## Mini example: a churn workflow (end-to-end)
+# 4.0 Mini example: a churn workflow (end-to-end)
 
 1. **Question:** Who is likely to churn next month?
 2. **Data:** usage, plan type, support tickets, past churn.
@@ -69,14 +69,17 @@ Later we’ll cover two learning modes: prediction with labels and pattern-findi
 5. **Interpretation:** what features matter? what are the limitations?
 6. **Decision:** targeted retention + measurement plan.
 
-## Mini-lab (Google Colab)
+## 4.1 Mini-lab (Google Colab)
 
 :::{admonition} Colab link
 :class: tip
-- Week 1 notebook: https://colab.research.google.com/drive/17ZU_Hh7U5HzJaQUG9oL8g8rvMaP1iBsu?usp=sharing
+- [Accompanying Google Colab: Week 1](https://colab.research.google.com/drive/17ZU_Hh7U5HzJaQUG9oL8g8rvMaP1iBsu?usp=sharing)
 :::
 
-Churn Data: https://drive.google.com/file/d/1CcOCXyGM9GLFmzFbKfmIhioM-yLDkDqU/view?usp=sharing
+:::{admonition} Link to Churn data
+:class: important
+- [Churn data](https://drive.google.com/file/d/1CcOCXyGM9GLFmzFbKfmIhioM-yLDkDqU/view?usp=sharing)
+:::
 
 Throughout the semester, students will gradually build:
 - prompt logs,
@@ -86,7 +89,7 @@ Throughout the semester, students will gradually build:
 
 These will later become part of a lightweight “Research OS.”
 
-## AI check (responsible use)
+# 5.0 AI check (responsible use)
 
 :::{admonition} AI check
 :class: caution
@@ -96,7 +99,7 @@ If you use an AI tool this week:
 3. You must be able to explain your final result in your own words.
 :::
 
-## Review questions (quiz / reflection)
+# 6.0 Review questions (quiz / reflection)
 1. Give one example each of analytics, data science, and ML in business.
 2. What is the difference between supervised and unsupervised learning?
 3. Why can a strong model still lead to bad decisions?

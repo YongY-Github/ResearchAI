@@ -555,10 +555,11 @@ but does not replace thinking.
 
 # 8.0 Homework
 
-1. Explore the Exponential distribution.
-2. Explore the Poisson distribution.
-3. Generate histograms with different parameters.
-4. Save useful prompts into:
+1. Go through the Lesson again, running the code in Goolge Colab.
+2. Make sure you fully understand the empirical rule.
+3. Explore the Exponential distribution.
+4. Explore the Poisson distribution.
+6. Save useful prompts into:
 
 ```text
 prompts/useful_prompts.md
@@ -569,9 +570,17 @@ prompts/useful_prompts.md
 ```text
 personal_log.md
 ```
-
 ---
 
 # 9.0 Resources
 
+:::{admonition} Colab link
+:class: tip
+- [Accompanying Google Colab: Week 3](https://colab.research.google.com/drive/1vifgaEUWu0JbBKNml9G0kxTdyOB_Dk9e?usp=sharing)
+:::
 
+[Ch6 Normal Disctibution](https://yongy-github.github.io/Stats101/Ch6.html)
+
+## Optional
+[Ch8 Binomial and Poisson Distribution](https://yongy-github.github.io/Stats101/Ch9.html)
+[Ch9 Uniform and Exponential Probability Distribution](https://yongy-github.github.io/Stats101/Ch10.html)

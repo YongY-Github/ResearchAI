@@ -1,9 +1,3 @@
----
-kernelspec:
-  name: jb2-env
-  display_name: Python (jb2-env)
----
-
 # Lesson 2A — Building a Research Workflow (Research OS)
 
 :::{admonition} Learning goals
@@ -24,7 +18,7 @@ By the end of this lesson, you should be able to:
 
 ---
 
-# Why This Matters
+# 1.0 Why This Matters
 
 Modern analytical work is increasingly workflow-driven.
 
@@ -53,7 +47,7 @@ Good workflow matters more than fancy tools.
 
 ---
 
-# AI Changes Workflow
+# 2.0 AI Changes Workflow
 
 AI tools can:
 - generate code,
@@ -80,11 +74,11 @@ then your workflow is not reproducible.
 
 ---
 
-# The Research OS Idea
+# 3.0 The Research OS Idea
 
 In this course, we gradually build a lightweight:
 
-# “Research Operating System” (Research OS)
+## 3.1 “Research Operating System” (Research OS)
 
 The goal is not perfection.
 
@@ -100,7 +94,7 @@ The Research OS acts as:
 
 ---
 
-# An Example Directory Structure
+## 3.2 An Example Directory Structure
 
 Create a folder called:
 
@@ -163,9 +157,9 @@ The purpose is to build:
 
 ---
 
-# The Two Core Files
+# 4.0 The Two Core Files
 
-## 1. researchAI_brain.md
+## 4.1 researchAI_brain.md
 
 This is your:
 - evolving knowledge system,
@@ -186,7 +180,7 @@ Think of this as:
 
 ---
 
-# Example: researchAI_brain.md
+### Example: researchAI_brain.md
 
 ```text
 # Current Focus
@@ -221,7 +215,7 @@ It is a living workflow system that evolves over time.
 
 ---
 
-## 2. personal_log.md
+## 4.22 personal_log.md
 
 This is your:
 - reflection journal,
@@ -244,7 +238,7 @@ Reflection is part of analytical thinking.
 
 ---
 
-# Example: personal_log.md
+### Example: personal_log.md
 
 ```text
 # Lesson 2 Reflection (2026-05-13)
@@ -288,9 +282,9 @@ The purpose of the log is:
 
 (OPTIONAL)
 
-# Example: useful_prompts.md
+## 4.3 Example: useful_prompts.md
 
-## Useful EDA Prompt
+### Useful EDA Prompt
 
 Suggest:
 - useful summary statistics,
@@ -305,7 +299,7 @@ for a dataset containing:
 
 ---
 
-# Prompting as Structured Reasoning
+# 5.0 Prompting as Structured Reasoning
 
 :::{admonition} Key idea
 :class: important
@@ -327,7 +321,7 @@ Good prompts usually include:
 
 ---
 
-# AI Workflow Example
+## 5.1 AI Workflow Example
 
 A typical workflow in this course might look like:
 
@@ -353,7 +347,7 @@ Researchers constantly revise:
 
 ---
 
-# Versioning and Iteration
+# 6.0 Versioning and Iteration
 
 Good analytical work evolves over time.
 
@@ -379,7 +373,7 @@ Professional analytical workflows involve:
 
 ---
 
-# Responsible AI Use
+# 7.0 Responsible AI Use
 
 AI can accelerate:
 - coding,
@@ -400,7 +394,7 @@ Humans remain responsible for:
 
 ---
 
-# Reflection Questions
+# 8.0 Reflection Questions
 
 1. Why does workflow organization matter more in the AI era?
 2. What kinds of things should be saved in a prompt log?
@@ -409,7 +403,7 @@ Humans remain responsible for:
 
 ---
 
-# Homework
+# 9.0 Homework
 
 1. Create your:
    - `ResearchAI/` folder,

@@ -34,6 +34,9 @@ If you cannot clearly explain where the data came from, you cannot defend the an
 :::
 
 ### Today’s choice: OWID datasets (file-based, reproducible)
+
+site: [OWID](https://ourworldindata.org/)
+
 OWID offers high-quality public datasets with clear metadata and regular updates.
 We will treat OWID as a model for good practice:
 - clear variable names,
@@ -71,6 +74,79 @@ Country comparisons are sensitive to:
 - definitions (e.g., CO₂ production vs consumption),
 - and time coverage.
 Always check metadata and missingness.
+:::
+
+---
+
+## Using APIs
+
+APIs (Application Programming Interfaces) allow programs to request data directly from servers in a structured format.
+
+Instead of manually downloading files,
+a program can automatically:
+- request data,
+- retrieve updates,
+- and integrate datasets into a workflow.
+
+This is useful because:
+- workflows become more reproducible,
+- updates can be automated,
+- and analyses can scale more easily.
+
+:::{admonition} Example
+:class: note
+
+A weather API might allow a program to automatically retrieve:
+- temperature,
+- rainfall,
+- or air quality data
+
+for a specific city every day.
+
+:::
+
+:::{admonition} Key idea
+:class: important
+
+APIs are especially useful when:
+- data updates frequently,
+- workflows must be reproducible,
+- or large-scale automated analysis is needed.
+
+:::
+
+---
+
+## AI Prompt Example — Finding a Dataset
+
+AI tools can help brainstorm:
+- datasets,
+- variables,
+- and possible analytical questions.
+
+Example prompt:
+
+```text
+Suggest useful OWID datasets for studying:
+- inflation,
+- inequality,
+- or climate change.
+
+For each dataset:
+1. explain what variables are available,
+2. suggest one possible research question,
+3. and mention one limitation.
+```
+
+:::{admonition} Important
+:class: caution
+
+AI can suggest datasets,
+but humans must verify:
+- whether the variables are appropriate,
+- whether definitions match the research question,
+- and whether limitations are understood.
+
 :::
 
 ---
