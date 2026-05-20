@@ -5,9 +5,9 @@
 By the end of Lesson 5, you should be able to:
 1. Diagnose common data quality issues (missingness, duplicates, inconsistent categories, outliers, wrong data types).
 2. Apply a clear, reproducible cleaning pipeline in Python (Google Colab).
-3. Create a small set of useful **features** (e.g., growth rates, flags, simple transformations).
-4. Write a short **Cleaning Log** explaining what you changed and why.
-5. Recognize when cleaning choices can introduce bias or distort comparisons.
+3. Merge two datasets using appropriate keys and join types, and validate the merge (row counts, unmatched records, duplicates).
+4. Create a small set of useful **features** (e.g., growth rates, flags, simple transformations).
+5. Write a short **Cleaning Log** explaining what you changed (including merges) and why, and recognize when cleaning choices can introduce bias or distort comparisons.
 :::
 
 ## Why this matters (motivation)
@@ -113,6 +113,53 @@ A good approach:
 
 ---
 
+## Merging datasets (a core real-world skill)
+
+In practice, “analysis-ready” data often requires combining multiple sources:
+- customer profile + transactions
+- sales + marketing spend
+- macro indicators + outcomes
+- (later) news text + market data
+
+:::{admonition} Key idea
+:class: important
+A merge is only correct if the **keys** and the **unit of observation** are correct.
+Before merging, answer:
+1. What is one row? (customer? transaction? country-year?)
+2. Which column(s) uniquely identify a row?
+:::
+
+### Join types (we keep this simple)
+- **Left join** (recommended default): keep all rows from the main dataset and attach matching information from the second dataset.
+- **Inner join**: keep only matched rows (risk: silently drops data).
+- **Outer join**: keep all rows from both datasets (useful for diagnosing mismatches).
+
+### Merge checks (required after every merge)
+After merging, always check:
+1. **Row count before vs after** (did it unexpectedly grow or shrink?)
+2. **Unmatched records** (did you introduce missing values?)
+3. **Duplicates created** (did a one-to-many merge happen by accident?)
+4. **Key uniqueness still holds** (your merged unit of observation is still consistent)
+
+:::{admonition} Common pitfall
+:class: warning
+Incorrect keys can cause:
+- “data explosions” (one-to-many merge when you expected one-to-one), or
+- silent data loss (inner join dropping many rows).
+Always validate merges.
+:::
+
+### Minimal Python merge pattern (recommended)
+
+# Example (safe default): left join + validation
+merged = left.merge(right, on="customer_id", how="left", validate="one_to_one")
+
+# Quick merge checks
+print(left.shape, right.shape, merged.shape)
+print(merged.isna().mean().sort_values(ascending=False).head(10))
+
+---
+
 ## Feature engineering (simple and meaningful)
 
 :::{admonition} Key idea
@@ -169,12 +216,15 @@ Replace this with your real link:
 1. Run `df.info()` and identify at least **two** columns with incorrect types.
 2. Produce a missingness table (overall and by one grouping variable).
 3. Check duplicates using a defined key (e.g., `customer_id + date` or `store_id + date`).
-4. Identify possible outliers and decide a rule (keep / flag / cap) with a brief justification.
-5. Create at least **two** engineered features and show their distributions.
-
-**Submission (after class)**
-- Share the Colab link (view permission) or export to PDF.
-- Include your **Cleaning Log** as a Markdown cell.
+4. **Merge exercise:** merge two datasets (or two tables) using a clearly stated key.
+   - state your expected merge type (one-to-one? one-to-many?)
+   - use a left join unless you have a reason not to
+5. **Merge validation:** report
+   - row counts before/after,
+   - number of unmatched rows introduced,
+   - whether duplicates were created.
+6. Identify possible outliers and decide a rule (keep / flag / cap) with a brief justification.
+7. Create at least **two** engineered features and show their distributions.
 
 ---
 

@@ -38,9 +38,9 @@ Students should choose one primary lane (Python or low-code) early in the semest
   - (Optional) Python-for-data mini-bootcamp
 - **Class 3 — Probability Foundations in Context (with Simulation and AI)**
   - Simulation and intuition
-- **Class 4 — Data Collection**
+- **Lesson 4 — Data Collection: Getting Data into Colab (Finance, WDI, OWID, News)**
   - APIs and responsible data sourcing
-  - Our World in Data examples
+  - Our World in Data - OWID, Yahoo Finance, WDI, etc
 - **Class 5 — Data Cleaning & Preprocessing**
   - Cleaning pipeline, missingness, outliers, feature engineering
 - **Class 6 — Simple & Multiple Regression**
