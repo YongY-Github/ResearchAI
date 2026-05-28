@@ -274,7 +274,7 @@ res.raise_for_status()
 payload = res.json()
 
 articles = pd.DataFrame(payload.get("articles", []))
-news = articles[["seendate", "sourceCountry", "language", "title", "url"]].copy()
+news = articles[["seendate", "sourcecountry", "language", "title", "url"]].copy()
 news.head(10)
 ```
 

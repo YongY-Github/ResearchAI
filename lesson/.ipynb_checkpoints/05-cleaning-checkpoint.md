@@ -1,4 +1,5 @@
-# Lesson 5 — Data Cleaning & Preprocessing (from raw to analysis-ready)
+# Lesson 5 — Data Cleaning, Preprocessing, and Merging Datasets
+*(from raw to analysis-ready)*
 
 :::{admonition} Learning goals
 :class: tip
@@ -10,13 +11,14 @@ By the end of Lesson 5, you should be able to:
 5. Write a short **Cleaning Log** explaining what you changed (including merges) and why, and recognize when cleaning choices can introduce bias or distort comparisons.
 :::
 
-## Why this matters (motivation)
+## Why this matters
 
 Most of the time in real analytics is spent **before modeling**:
-- fixing inconsistent input formats,
+- fixing inconsistent formats,
 - resolving category labels,
 - handling missing values,
-- and ensuring comparisons are meaningful.
+- ensuring the unit of observation is correct,
+- and merging multiple data sources safely.
 
 Good cleaning is not “cosmetic.” It changes your results.
 
@@ -27,179 +29,77 @@ A model trained on poorly cleaned data can look sophisticated while being fundam
 
 ---
 
-## The cleaning mindset: "What would break trust?"
+## Today’s lab datasets
 
-:::{admonition} Key idea
-:class: important
-Data cleaning is about **trustworthy measurement**.
-Ask:
-1. What does each variable mean in the real world?
-2. What values are impossible or suspicious?
-3. Is missingness random or systematic?
-4. Will cleaning decisions change group comparisons?
-:::
+We will use two CSV files:
 
-### A simple cleaning pipeline (the course standard)
+- [divorce-rates-by-country-2026.csv](../files/divorce-rates-by-country-2026.csv)
+- [gdp-per-capita-by-country-2026.csv](../files/gdp-per-capita-by-country-2026.csv)
+
+Both files are essentially **country-level** data, but most variables are stored in **wide format** (years appear in column names such as `_2023`, `_2022`, etc.).  
+To merge them properly, we will convert each file into a **country–year** panel.
+
+### Intended unit of observation (after cleaning)
+- **One row = one country-year**
+- Key columns: `flagCode` + `year` (and `country` as a label)
+
+---
+
+## The course-standard cleaning pipeline
+
 1. **Type check**: numbers as numbers, dates as dates, categories as categories  
-2. **Range check**: impossible values (negative sales, invalid ages, etc.)  
-3. **Uniqueness check**: duplicates in IDs or key fields  
-4. **Missingness check**: overall and by group (region/segment/time)  
-5. **Consistency check**: category labels, units, and definitions  
-6. **Document everything**: a short cleaning log
+2. **Range check**: impossible values (negative rates, nonsensical GDP values, etc.)  
+3. **Uniqueness check**: duplicates in keys (`flagCode`, `year`)  
+4. **Missingness check**: overall + by key variables  
+5. **Consistency check**: country codes/names match across files  
+6. **Document everything**: a short cleaning log  
 
 ---
 
-## Common cleaning problems (and practical fixes)
+## Wide vs long (why reshaping matters)
 
-### 1) Data types and parsing
-Examples:
-- `date` stored as a string
-- currency stored as `"1,200"` (string with commas)
-- numeric column includes `"N/A"` or `"—"`
+Many public datasets are reported in **wide form**:
 
-:::{admonition} Common pitfall
-:class: warning
-If numbers are stored as strings, operations may silently fail (sorting, comparisons, aggregations).
-Always check `df.info()` and a few values.
-:::
+- `DivorcesPer1kPop_2023`, `DivorcesPer1kPop_2022`, ...
 
-### 2) Missing values (what to do depends on why)
-Missingness can be:
-- **rare noise** (logging errors),
-- **structural** (not applicable),
-- **systematic** (missing more for a particular group).
+But analysis (and merging) is usually easier in **long form**:
+
+- `flagCode`, `country`, `year`, `DivorcesPer1kPop`, ...
 
 :::{admonition} Key idea
 :class: important
-Before “filling” missing values, look at missingness by group:
-- by region,
-- by product category,
-- by time period.
-This often reveals whether missingness is random or systematic.
+Wide form is common for reporting.  
+Long (country–year) form is usually better for analysis, merging, and plotting.
 :::
-
-**Practical options (in increasing strength):**
-- leave missing values and be explicit about sample size,
-- drop rows only if missingness is small and plausibly random,
-- impute using simple rules (median, last observation, etc.) with justification,
-- create a **missingness indicator** (a flag) when missingness itself is informative.
-
-### 3) Duplicates and unit of observation
-Always confirm the unit:
-- customer-level?
-- transaction-level?
-- day-level?
-
-Duplicates may be:
-- exact duplicates (same row repeated),
-- key duplicates (same `customer_id + date` repeated).
-
-:::{admonition} Common pitfall
-:class: warning
-Duplicates can inflate totals and bias averages.
-Always define keys and check whether they should be unique.
-:::
-
-### 4) Outliers (don’t delete automatically)
-Outliers might be:
-- true extreme behavior (high-value customers),
-- measurement error,
-- unit problems (e.g., 1,000 vs 1.000).
-
-A good approach:
-- flag outliers,
-- inspect a small number of extreme cases,
-- justify whether you keep, cap (winsorize), or exclude.
 
 ---
 
-## Merging datasets (a core real-world skill)
+## Merging datasets (the professional habit)
 
-In practice, “analysis-ready” data often requires combining multiple sources:
-- customer profile + transactions
-- sales + marketing spend
-- macro indicators + outcomes
-- (later) news text + market data
+In real projects, your analysis-ready dataset is often the result of a merge:
+- outcomes + covariates,
+- macro indicators + social indicators,
+- business KPIs + external context.
 
 :::{admonition} Key idea
 :class: important
 A merge is only correct if the **keys** and the **unit of observation** are correct.
 Before merging, answer:
-1. What is one row? (customer? transaction? country-year?)
-2. Which column(s) uniquely identify a row?
+1) What is one row?  
+2) Which columns uniquely identify a row?
 :::
 
-### Join types (we keep this simple)
-- **Left join** (recommended default): keep all rows from the main dataset and attach matching information from the second dataset.
-- **Inner join**: keep only matched rows (risk: silently drops data).
-- **Outer join**: keep all rows from both datasets (useful for diagnosing mismatches).
+### Join types (keep it simple)
+- **Left join** (recommended default): keep all rows from the main dataset and attach what matches from the other dataset.
+- **Inner join**: keep only matched rows (risk: silent data loss).
+- **Outer join**: keep all rows from both datasets (best for diagnosing mismatch).
 
-### Merge checks (required after every merge)
+### Merge validation (required)
 After merging, always check:
-1. **Row count before vs after** (did it unexpectedly grow or shrink?)
-2. **Unmatched records** (did you introduce missing values?)
-3. **Duplicates created** (did a one-to-many merge happen by accident?)
-4. **Key uniqueness still holds** (your merged unit of observation is still consistent)
-
-:::{admonition} Common pitfall
-:class: warning
-Incorrect keys can cause:
-- “data explosions” (one-to-many merge when you expected one-to-one), or
-- silent data loss (inner join dropping many rows).
-Always validate merges.
-:::
-
-### Minimal Python merge pattern (recommended)
-
-# Example (safe default): left join + validation
-merged = left.merge(right, on="customer_id", how="left", validate="one_to_one")
-
-# Quick merge checks
-print(left.shape, right.shape, merged.shape)
-print(merged.isna().mean().sort_values(ascending=False).head(10))
-
----
-
-## Feature engineering (simple and meaningful)
-
-:::{admonition} Key idea
-:class: important
-Feature engineering means turning raw columns into variables that match your question.
-Good features are:
-- interpretable,
-- stable,
-- and aligned with business/econ logic.
-:::
-
-Examples:
-- **growth rate**: `sales_growth = (sales_t - sales_{t-1}) / sales_{t-1}`
-- **log transform** for skewed variables: `log_sales = log(1 + sales)`
-- **flags**: `high_value_customer`, `promotion_period`, `missing_income_flag`
-- **time features**: month/quarter, day-of-week (if relevant)
-
-:::{admonition} Common pitfall
-:class: warning
-Do not engineer features that leak future information (e.g., using next month’s sales to predict this month’s churn).
-:::
-
----
-
-## Mini case: cleaning a “messy sales” dataset
-
-**Scenario:** You have sales records with:
-- inconsistent category labels (“BKK”, “Bangkok”, “Bangkok ”),
-- dates stored as strings in mixed formats,
-- missing marketing spend for some regions,
-- extreme sales values.
-
-**Goal:** Produce an analysis-ready dataset for regression and visualization later.
-
-Deliverables from cleaning:
-1. A cleaned `DataFrame` with correct types
-2. A missingness summary (overall + by region/category)
-3. A small outlier check
-4. 2–3 engineered features (e.g., log_sales, growth, flags)
-5. A short Cleaning Log
+1) Row count before vs after  
+2) Unmatched records (new missing values created)  
+3) Duplicates created unexpectedly  
+4) Key uniqueness still holds  
 
 ---
 
@@ -207,55 +107,254 @@ Deliverables from cleaning:
 
 :::{admonition} Colab link
 :class: tip
-Replace this with your real link:
 
-- Week 5 notebook (Cleaning & preprocessing): https://colab.research.google.com/drive/PASTE_NOTEBOOK_ID
+- Lesson 5 notebook (cleaning + merging): https://colab.research.google.com/drive/1tCOzCPkV7iUHBJ_n-_3TWkk_f9xK01iF?usp=sharing
 :::
 
-**In-class checkpoints**
-1. Run `df.info()` and identify at least **two** columns with incorrect types.
-2. Produce a missingness table (overall and by one grouping variable).
-3. Check duplicates using a defined key (e.g., `customer_id + date` or `store_id + date`).
-4. **Merge exercise:** merge two datasets (or two tables) using a clearly stated key.
-   - state your expected merge type (one-to-one? one-to-many?)
-   - use a left join unless you have a reason not to
-5. **Merge validation:** report
+### In-class checkpoints
+
+**A. Load and inspect**
+1. Load both CSV files into DataFrames.
+2. Run `df.info()` and identify at least **two** issues (types, missingness, column naming, etc.).
+
+**B. Reshape divorce data to country–year**
+3. Convert `divorce-rates-by-country-2026.csv` from wide to long so you have:
+   - `flagCode`, `country`, `year`, and the variables:
+     - `DivorcesPer1kPop`
+     - `NumberOfDivorces`
+     - `MarriagesPer1kPop`
+     - `NumberOfMarriages`
+
+**C. Reshape GDP per capita data to country–year**
+4. Convert `gdp-per-capita-by-country-2026.csv` from wide to long so you have:
+   - `flagCode`, `country`, `year`, and at least:
+     - `GDPPerCapitaViaWB`
+   (Optional: also reshape PPP variables if you want.)
+
+**D. Merge**
+5. Merge the two long datasets on `flagCode` + `year` (left join recommended).
+6. Validate the merge:
    - row counts before/after,
-   - number of unmatched rows introduced,
-   - whether duplicates were created.
-6. Identify possible outliers and decide a rule (keep / flag / cap) with a brief justification.
-7. Create at least **two** engineered features and show their distributions.
+   - unmatched rows introduced,
+   - duplicates created,
+   - key uniqueness.
+
+**E. Feature engineering**
+7. Create at least **two** features, for example:
+   - `log_gdp_pc = log(1 + GDPPerCapitaViaWB)`
+   - `complete = 1` if both `DivorcesPer1kPop` and `GDPPerCapitaViaWB` are non-missing, else `0`
+8. Produce a summary table:
+   - number of observations,
+   - number complete,
+   - missingness of key variables.
+
+**F. Cleaning Log**
+9. Write a short cleaning log (template at the end) in your notebook.
 
 ---
 
-## AI check (responsible use for cleaning)
+# Python patterns (copy/paste)
+
+## 0) Setup and loading
+
+```python
+import pandas as pd
+import numpy as np
+import re
+
+div = pd.read_csv("divorce-rates-by-country-2026.csv")
+gdp = pd.read_csv("gdp-per-capita-by-country-2026.csv")
+
+div.head(), gdp.head()
+````
+
+### Quick checks you should always run
+
+```python
+div.shape, gdp.shape
+div.isna().mean().sort_values(ascending=False).head(10)
+gdp.isna().mean().sort_values(ascending=False).head(10)
+```
+
+---
+
+## 1) Reshape the divorce dataset (wide → long panel)
+
+The divorce file contains repeated year-suffixed columns for several variable stubs:
+
+* `DivorcesPer1kPop_YYYY`
+* `NumberOfDivorces_YYYY`
+* `MarriagesPer1kPop_YYYY`
+* `NumberOfMarriages_YYYY`
+
+```python
+import re
+
+div_year_cols = [c for c in div.columns if re.search(r"_\d{4}$", c)]
+
+div_long = div.melt(
+    id_vars=["flagCode", "country"],
+    value_vars=div_year_cols,
+    var_name="var_year",
+    value_name="value"
+)
+
+div_long["year"] = div_long["var_year"].str.extract(r"(\d{4})").astype(int)
+div_long["variable"] = div_long["var_year"].str.replace(r"_\d{4}$", "", regex=True)
+
+div_long.head()
+```
+
+Pivot to one row per country-year:
+
+```python
+div_panel = (div_long.pivot_table(
+    index=["flagCode", "country", "year"],
+    columns="variable",
+    values="value",
+    aggfunc="first"
+).reset_index())
+
+div_panel.head()
+```
+
+Key validation:
+
+```python
+# Check uniqueness of key
+div_panel.duplicated(subset=["flagCode", "year"]).sum()
+```
+
+---
+
+## 2) Reshape the GDP dataset (wide → long panel)
+
+The GDP file has columns like:
+
+* `GDPPerCapitaViaWB_YYYY`
+* `GDPPerCapitaPPPIntViaWB_YYYY` (optional)
+
+Start with GDP per capita (WB):
+
+```python
+gdp_year_cols = [c for c in gdp.columns if c.startswith("GDPPerCapitaViaWB_")]
+
+gdp_long = gdp.melt(
+    id_vars=["flagCode", "country"],
+    value_vars=gdp_year_cols,
+    var_name="var_year",
+    value_name="GDPPerCapitaViaWB"
+)
+
+gdp_long["year"] = gdp_long["var_year"].str.extract(r"(\d{4})").astype(int)
+gdp_panel = gdp_long[["flagCode", "country", "year", "GDPPerCapitaViaWB"]].copy()
+
+gdp_panel.head()
+```
+
+Key validation:
+
+```python
+gdp_panel.duplicated(subset=["flagCode", "year"]).sum()
+```
+
+(Optional) If you also want PPP series, repeat the same pattern with columns starting with `GDPPerCapitaPPPIntViaWB_`.
+
+---
+
+## 3) Merge + validation
+
+Keep the unit of observation as country-year.
+
+```python
+merged = div_panel.merge(
+    gdp_panel,
+    on=["flagCode", "year"],
+    how="left",
+    validate="one_to_one",
+    suffixes=("", "_gdp")
+)
+
+# Keep a clean country name (prefer divorce country if present)
+if "country_gdp" in merged.columns:
+    merged["country"] = merged["country"].fillna(merged["country_gdp"])
+    merged = merged.drop(columns=["country_gdp"])
+
+merged.head()
+```
+
+Merge checks:
+
+```python
+print("div_panel:", div_panel.shape, "gdp_panel:", gdp_panel.shape, "merged:", merged.shape)
+
+print("\nTop missingness after merge:")
+print(merged.isna().mean().sort_values(ascending=False).head(12))
+
+# Key uniqueness
+print("\nDuplicates on key flagCode-year:", merged.duplicated(subset=["flagCode", "year"]).sum())
+```
+
+---
+
+## 4) Feature engineering
+
+```python
+merged["log_gdp_pc"] = np.log1p(merged["GDPPerCapitaViaWB"])
+
+merged["complete"] = (
+    merged["GDPPerCapitaViaWB"].notna() &
+    merged["DivorcesPer1kPop"].notna()
+).astype(int)
+
+merged[["flagCode", "country", "year", "DivorcesPer1kPop", "GDPPerCapitaViaWB", "log_gdp_pc", "complete"]].head()
+```
+
+Quick summary table:
+
+```python
+summary = pd.DataFrame({
+    "n_rows": [len(merged)],
+    "n_complete": [merged["complete"].sum()],
+    "share_complete": [merged["complete"].mean()]
+})
+summary
+```
+
+---
+
+# Cleaning Log (required)
+
+Copy this into your notebook and fill it in:
+
+* **Files used:**
+* **Unit of observation:** (before / after reshape)
+* **Key columns used for merge:**
+* **Cleaning steps performed:** (bullets)
+* **Reshaping performed?** (wide→long; how?)
+* **Join type used + why:**
+* **Merge validation results:** (row counts; unmatched; duplicates)
+* **Features created:**
+* **One limitation / risk:** (e.g., missingness, comparability, measurement)
+
+---
+
+## AI check (responsible use)
 
 :::{admonition} AI check
 :class: caution
-AI can help propose cleaning steps, but you must:
-1. Verify logic by checking small samples and summary stats before/after.
-2. Avoid “blind imputation” suggested by AI without considering missingness patterns.
+AI can help propose cleaning and merge steps, but you must:
+
+1. Verify logic with before/after checks (row counts, missingness, duplicates).
+2. Avoid blind transformations without checking keys and units.
 3. Record prompts and edits in your prompt/workflow log.
-:::
-
-**Good prompt examples**
-- “Given these columns and common issues (mixed date formats, category typos), propose a cleaning checklist.”
-- “Show pandas code to standardize category labels and parse dates safely.”
-- “How can I summarize missingness by region and year?”
-
-**Bad prompt example**
-- “Clean my dataset and tell me the results” (without showing steps and checks)
+   :::
 
 ---
 
 ## Review questions (quiz / reflection)
 
-1. Why can dropping missing values change your conclusions?
-2. Give one case where an outlier might be *real* and important (not an error).
-3. What is the unit of observation in your dataset, and how does that affect duplicate checks?
-
-:::{admonition} Reflection prompt
-:class: note
-In ~150 words: Describe one cleaning decision you made today (missing values, duplicates, outliers, or recoding).  
-What was your rule, and what could go wrong if the rule is inappropriate?
-:::
+1. Why can an inner join silently change your conclusions?
+2. What checks would reveal a one-to-many “merge explosion”?
+3. Why is long form often easier for analysis than wide form?
+4. What is one way cleaning choices can introduce bias?
