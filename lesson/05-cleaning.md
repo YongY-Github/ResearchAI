@@ -107,8 +107,9 @@ After merging, always check:
 
 :::{admonition} Colab link
 :class: tip
+Use the class notebook here:
 
-- Lesson 5 notebook (cleaning + merging): https://colab.research.google.com/drive/1tCOzCPkV7iUHBJ_n-_3TWkk_f9xK01iF?usp=sharing
+- https://colab.research.google.com/drive/1Y7kG9eYSZlg77AUxVJmj3MxiiGUQYNna?usp=sharing
 :::
 
 ### In-class checkpoints
@@ -129,10 +130,10 @@ After merging, always check:
 4. Convert `gdp-per-capita-by-country-2026.csv` from wide to long so you have:
    - `flagCode`, `country`, `year`, and at least:
      - `GDPPerCapitaViaWB`
-   (Optional: also reshape PPP variables if you want.)
+   *(Optional: also reshape PPP variables if you want.)*
 
 **D. Merge**
-5. Merge the two long datasets on `flagCode` + `year` (left join recommended).
+5. Merge the two long datasets on `flagCode` + `year` (**left join** recommended).
 6. Validate the merge:
    - row counts before/after,
    - unmatched rows introduced,
@@ -141,7 +142,7 @@ After merging, always check:
 
 **E. Feature engineering**
 7. Create at least **two** features, for example:
-   - `log_gdp_pc = log(1 + GDPPerCapitaViaWB)`
+   - `log_gdp_pc = log(GDPPerCapitaViaWB)`
    - `complete = 1` if both `DivorcesPer1kPop` and `GDPPerCapitaViaWB` are non-missing, else `0`
 8. Produce a summary table:
    - number of observations,
@@ -153,9 +154,9 @@ After merging, always check:
 
 ---
 
-# Python patterns (copy/paste)
+## Python patterns (copy/paste)
 
-## 0) Setup and loading
+### 0) Setup and loading
 
 ```python
 import pandas as pd
@@ -164,8 +165,6 @@ import re
 
 div = pd.read_csv("divorce-rates-by-country-2026.csv")
 gdp = pd.read_csv("gdp-per-capita-by-country-2026.csv")
-
-div.head(), gdp.head()
 ````
 
 ### Quick checks you should always run
@@ -178,7 +177,7 @@ gdp.isna().mean().sort_values(ascending=False).head(10)
 
 ---
 
-## 1) Reshape the divorce dataset (wide → long panel)
+### 1) Reshape the divorce dataset (wide → long panel)
 
 The divorce file contains repeated year-suffixed columns for several variable stubs:
 
@@ -188,8 +187,6 @@ The divorce file contains repeated year-suffixed columns for several variable st
 * `NumberOfMarriages_YYYY`
 
 ```python
-import re
-
 div_year_cols = [c for c in div.columns if re.search(r"_\d{4}$", c)]
 
 div_long = div.melt(
@@ -201,8 +198,6 @@ div_long = div.melt(
 
 div_long["year"] = div_long["var_year"].str.extract(r"(\d{4})").astype(int)
 div_long["variable"] = div_long["var_year"].str.replace(r"_\d{4}$", "", regex=True)
-
-div_long.head()
 ```
 
 Pivot to one row per country-year:
@@ -214,20 +209,17 @@ div_panel = (div_long.pivot_table(
     values="value",
     aggfunc="first"
 ).reset_index())
-
-div_panel.head()
 ```
 
 Key validation:
 
 ```python
-# Check uniqueness of key
 div_panel.duplicated(subset=["flagCode", "year"]).sum()
 ```
 
 ---
 
-## 2) Reshape the GDP dataset (wide → long panel)
+### 2) Reshape the GDP dataset (wide → long panel)
 
 The GDP file has columns like:
 
@@ -248,8 +240,6 @@ gdp_long = gdp.melt(
 
 gdp_long["year"] = gdp_long["var_year"].str.extract(r"(\d{4})").astype(int)
 gdp_panel = gdp_long[["flagCode", "country", "year", "GDPPerCapitaViaWB"]].copy()
-
-gdp_panel.head()
 ```
 
 Key validation:
@@ -258,13 +248,9 @@ Key validation:
 gdp_panel.duplicated(subset=["flagCode", "year"]).sum()
 ```
 
-(Optional) If you also want PPP series, repeat the same pattern with columns starting with `GDPPerCapitaPPPIntViaWB_`.
-
 ---
 
-## 3) Merge + validation
-
-Keep the unit of observation as country-year.
+### 3) Merge + validation
 
 ```python
 merged = div_panel.merge(
@@ -279,8 +265,6 @@ merged = div_panel.merge(
 if "country_gdp" in merged.columns:
     merged["country"] = merged["country"].fillna(merged["country_gdp"])
     merged = merged.drop(columns=["country_gdp"])
-
-merged.head()
 ```
 
 Merge checks:
@@ -291,23 +275,20 @@ print("div_panel:", div_panel.shape, "gdp_panel:", gdp_panel.shape, "merged:", m
 print("\nTop missingness after merge:")
 print(merged.isna().mean().sort_values(ascending=False).head(12))
 
-# Key uniqueness
 print("\nDuplicates on key flagCode-year:", merged.duplicated(subset=["flagCode", "year"]).sum())
 ```
 
 ---
 
-## 4) Feature engineering
+### 4) Feature engineering
 
 ```python
-merged["log_gdp_pc"] = np.log1p(merged["GDPPerCapitaViaWB"])
+merged["log_gdp_pc"] = np.log(merged["GDPPerCapitaViaWB"])
 
 merged["complete"] = (
     merged["GDPPerCapitaViaWB"].notna() &
     merged["DivorcesPer1kPop"].notna()
 ).astype(int)
-
-merged[["flagCode", "country", "year", "DivorcesPer1kPop", "GDPPerCapitaViaWB", "log_gdp_pc", "complete"]].head()
 ```
 
 Quick summary table:
@@ -323,7 +304,7 @@ summary
 
 ---
 
-# Cleaning Log (required)
+## Cleaning Log (required)
 
 Copy this into your notebook and fill it in:
 
