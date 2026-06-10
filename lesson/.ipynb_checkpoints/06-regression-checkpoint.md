@@ -11,7 +11,6 @@ By the end of Lesson 6, you should be able to:
 4. Fit and interpret **simple regression** and **multiple regression** in Python (Google Colab) using `statsmodels` (`import statsmodels.api as sm`).
 5. Interpret coefficients carefully, including how the meaning can change when you add a control variable.
 6. Understand key limitations (intuition): correlation vs causation, omitted variables, reverse causality, and extrapolation.
-7. Write a short “manager memo” conclusion: headline result + evidence + caveat.
 :::
 
 ## Why this matters
@@ -58,7 +57,7 @@ Before running correlation/regression, be clear about:
 ### Today’s running example (new dataset)
 
 We use:
-- [divorce-raw-1992.csv](../files/divorce_raw.csv)
+- [divorce-raw-1992.csv](../files/divorce_raw.csv) — divorce data
 
 - Unit: **country (2019 cross-section)**
 - Outcome $Y$: divorce–marriage ratio  
