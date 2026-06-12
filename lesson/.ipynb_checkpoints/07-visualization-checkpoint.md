@@ -32,6 +32,9 @@ Your job is to make the evidence understandable **without exaggerating certainty
 
 ## Today’s running example: Gapminder-style visualization
 
+See https://www.youtube.com/watch?v=jbkSRLYSojo
+Also https://ourworldindata.org/search?topics=Life+Expectancy&resultType=all
+
 Today we use three Gapminder data files:
 
 - [lex.csv](../files/lex.csv) — life expectancy  
@@ -233,50 +236,55 @@ Use the class notebook here:
 ### In-class checkpoints
 
 **A. Load and inspect**
-1. Load the three source files:
-   - `lex.csv`
-   - `gdp_pcap.csv`
-   - `pop.csv`
-2. Run basic checks:
-   - shape,
-   - column names,
-   - missingness,
-   - year range.
 
-**B. Reshape and merge**
-3. Convert each dataset from wide to long format.
-4. Keep both:
-   - `geo` = country code,
-   - `name` = country name.
-5. Merge into one country-year panel.
+1 Load the three source files:  
+    - `lex.csv`  
+    - `gdp_pcap.csv`  
+    - `pop.csv`  
+
+2 Run basic checks:
+    - shape,  
+    - column names,  
+    - missingness,  
+    - year range.
+
+**B. Reshape and merge**  
+3. Convert each dataset from wide to long format.  
+4. Keep both:  
+    - `geo` = country code,  
+    - `name` = country name.  
+5. Merge into one country-year panel.  
 6. Rename `name` to `country`.
 
-**C. Static visualization**
-7. Choose one year, such as 2019.
-8. Create a scatter plot:
-   - x-axis: log GDP per capita,
-   - y-axis: life expectancy.
+**C. Static visualization**  
+7. Choose one year, such as 2019.  
+8. Create a scatter plot:  
+    - x-axis: log GDP per capita,  
+    - y-axis: life expectancy.  
 9. Write a short interpretation of the pattern.
 
-**D. Gapminder-style visualizer**
-10. Create an animated bubble chart:
+**D. Gapminder-style visualizer**  
+10. Create an animated bubble chart:  
     - x-axis: GDP per capita,
-    - y-axis: life expectancy,
-    - bubble size: population,
-    - animation: year,
-    - hover label: country.
-11. Use a log scale for GDP per capita.
-12. Set a sensible y-axis range, such as 0 to 100 years.
+    - y-axis: life expectancy,  
+    - bubble size: population,  
+    - animation: year,  
+    - hover label: country.  
+11. Use a log scale for GDP per capita.  
+12. Set a sensible y-axis range, such as 0 to 100 years.  
 
-**E. Story charts**
-13. Choose 3–5 countries.
-14. Produce:
-    - life expectancy over time,
-    - GDP per capita over time.
-15. Write a mini data story:
-    - one headline,
-    - 2–3 evidence bullets,
+**E. Story charts**  
+13. Choose 3–5 countries.  
+14. Produce:  
+    - life expectancy over time,  
+    - GDP per capita over time,  
+    - Feel free to look at gender differences, or poor versus rich countries, etc. 
+15. Write a mini data story:    
+    - one headline,  
+    - 2–3 evidence bullets,  
     - one caveat.
+
+Submit here: https://docs.google.com/forms/d/e/1FAIpQLSdaRJKEtbf4kAbnNGXXbyBrwgxceYDjBjyzkXSJ-E27_50Gjg/viewform?usp=sharing&ouid=103851245469429210515
 
 ---
 
